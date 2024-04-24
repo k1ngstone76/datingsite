@@ -27,13 +27,22 @@ def main():
 
 
 @app.route("/")
-def index():
+def first_form():
     # db_sess = db_session.create_session()
     # if current_user.is_authenticated:
     #     news = db_sess.query(Anceta).filter(Anceta.user == current_user)
     # else:
     #     news = db_sess.query(Anceta).all()
     return render_template("first_form.html")
+
+# @app.route('/eeee')
+# def index():
+#     db_sess = db_session.create_session()
+#     if current_user.is_authenticated:
+#         news = db_sess.query(Anceta).filter(Anceta.user == current_user)
+#     else:
+#         news = db_sess.query(Anceta).all()
+
 
 @app.route('/vibor_reg_or_vxod.html')
 def vibor():
