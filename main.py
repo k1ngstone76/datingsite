@@ -33,8 +33,11 @@ def index():
     #     news = db_sess.query(Anceta).filter(Anceta.user == current_user)
     # else:
     #     news = db_sess.query(Anceta).all()
-    return render_template("index.html")
+    return render_template("first_form.html")
 
+@app.route('/vibor_reg_or_vxod.html')
+def vibor():
+    return render_template('vibor_reg_or_vxod.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def reqister():
