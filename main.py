@@ -70,7 +70,7 @@ def add_news():
 def index():
     db_sess = db_session.create_session()
     if current_user.is_authenticated:
-        news = db_sess.query(Anceta).filter(Anceta.user == current_user)
+        news = db_sess.query(Anceta).all()
         return render_template("index.html", news=news)
 
 @app.route('/anc_delete/<int:id>', methods=['GET', 'POST'])
@@ -83,7 +83,7 @@ def anc_delete(id):
         db_sess.commit()
     else:
         abort(404)
-    return redirect('/')
+    return redirect('/all')
 
 
 @app.route('/anc/<int:id>', methods=['GET', 'POST'])
@@ -105,7 +105,7 @@ def edit_news(id):
             anc.title = form.title.data
             anc.content = form.content.data
             db_sess.commit()
-            return redirect('/')
+            return redirect('/all')
         else:
             abort(404)
     return render_template('anketa.html', title='Редактирование новости', form=form)
@@ -144,7 +144,7 @@ def reqister():
         user.set_password(form.password.data)
         db_sess.add(user)
         db_sess.commit()
-        return redirect('/anketa')
+        return redirect('/all')
     return render_template('register.html', title='Регистрация', form=form)
 
 
@@ -157,7 +157,7 @@ def login():
         user = db_sess.query(User).filter(User.email == form.email.data).first()
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
-            return redirect("/anketa")
+            return redirect("/all")
         return render_template('login.html', message="Неправильный логин или пароль", form=form)
     return render_template('login.html', title='Авторизация', form=form)
 
