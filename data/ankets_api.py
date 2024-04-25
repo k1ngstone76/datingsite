@@ -24,9 +24,6 @@ def get_news():
 @blueprint.route('/api/anc/<int:anc_id>', methods=['GET'])
 def get_one_news(anc_id):
     db_sess = db_session.create_session()
-    # Согласно REST, далее нужно реализовать получение информации об одной новости. Фактически, мы уже получили из списка
-    # всю информацию о каждой новости. При проектировании приложений по архитектуре REST обычно поступают таким образом:
-    # когда возвращается список объектов, он содержит только краткую информацию (например, только id и заголовок)...
     ank = db_sess.query(Anceta).get(anc_id)
     if not ank:
         return jsonify({'error': 'Not found'})

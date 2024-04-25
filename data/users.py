@@ -7,8 +7,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 from .db_session import SqlAlchemyBase
 
-# REST-сервисы обмениваются информацией в формате json. Научить объекты наших моделей превращаться в словарь, для чего
-# надо добавить каждой из моделей метод to_dict. Чтобы не делать руками, воспользуемся модулем SQLAlchemy-serializer.
+
 class User(SqlAlchemyBase, UserMixin, SerializerMixin):
     __tablename__ = 'users'
 

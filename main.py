@@ -21,6 +21,7 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 
+
 @login_manager.user_loader
 def load_user(user_id):
     db_sess = db_session.create_session()
@@ -42,10 +43,6 @@ def main():
 
     # для одного объекта
     api.add_resource(ankets_res.AncResource, '/api/v2/anc/<int:anc_id>')
-
-
-    # О расширенной схеме (добавлен независимый модуль, или Blueprint) должно узнать основное приложение.
-    # Перед запуском нужно зарегистрировать схему
     app.register_blueprint(ankets_api.blueprint)
     app.run(debug=True)
 
@@ -72,6 +69,7 @@ def index():
     if current_user.is_authenticated:
         news = db_sess.query(Anceta).all()
         return render_template("index.html", news=news)
+
 
 @app.route('/anc_delete/<int:id>', methods=['GET', 'POST'])
 @login_required
@@ -110,6 +108,7 @@ def edit_news(id):
             abort(404)
     return render_template('anketa.html', title='Редактирование новости', form=form)
 
+
 @app.route("/")
 def first_form():
     # db_sess = db_session.create_session()
@@ -120,10 +119,10 @@ def first_form():
     return render_template("first_form.html")
 
 
-
 @app.route('/vibor_reg_or_vxod.html')
 def vibor():
     return render_template('vibor_reg_or_vxod.html')
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def reqister():
@@ -148,7 +147,6 @@ def reqister():
     return render_template('register.html', title='Регистрация', form=form)
 
 
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
@@ -160,6 +158,7 @@ def login():
             return redirect("/all")
         return render_template('login.html', message="Неправильный логин или пароль", form=form)
     return render_template('login.html', title='Авторизация', form=form)
+
 
 if __name__ == '__main__':
     main()
