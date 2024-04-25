@@ -3,7 +3,7 @@ from wtforms import StringField, TextAreaField, BooleanField, SubmitField
 from wtforms.validators import DataRequired
 
 
-class NewsForm(FlaskForm):
+class AncForm(FlaskForm):
     title = StringField('Заголовок', validators=[DataRequired()])
     content = TextAreaField("Содержание")
     submit = SubmitField('Применить')
