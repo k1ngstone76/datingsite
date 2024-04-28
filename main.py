@@ -64,11 +64,12 @@ def add_news():
 
 
 @app.route("/all")
-def index():
+@app.route('/all/<int:page>')
+def index(page=1):
     db_sess = db_session.create_session()
     if current_user.is_authenticated:
         news = db_sess.query(Anceta).all()
-        return render_template("index.html", news=news)
+        return render_template("index.html", news=news[(page -1)*10 : page*10], page=page)
 
 
 @app.route('/anc_delete/<int:id>', methods=['GET', 'POST'])
