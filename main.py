@@ -34,9 +34,8 @@ def logout():
     logout_user()
     return redirect("/")
 
-
 def main():
-    db_session.global_init("db/blogs.db")
+    db_session.global_init("db/blogs2.db")
 
     # для списка объектов
     api.add_resource(ankets_res.AnkListResource, '/api/v2/anc')
@@ -68,9 +67,8 @@ def index():
     db_sess = db_session.create_session()
     if current_user.is_authenticated:
         news = db_sess.query(Anceta).all()
-        return render_template("index.html", news=news)
-
-
+        if news:
+            return render_template("index.html", news=news)
 @app.route('/anc_delete/<int:id>', methods=['GET', 'POST'])
 @login_required
 def anc_delete(id):
@@ -111,11 +109,6 @@ def edit_news(id):
 
 @app.route("/")
 def first_form():
-    # db_sess = db_session.create_session()
-    # if current_user.is_authenticated:
-    #     news = db_sess.query(Anceta).filter(Anceta.user == current_user)
-    # else:
-    #     news = db_sess.query(Anceta).all()
     return render_template("first_form.html")
 
 
@@ -138,7 +131,9 @@ def reqister():
         user = User(
             name=form.name.data,
             email=form.email.data,
-            about=form.about.data
+            about=form.about.data,
+            town=form.town.data,
+            sex=form.sex.data
         )
         user.set_password(form.password.data)
         db_sess.add(user)

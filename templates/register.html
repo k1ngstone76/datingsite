@@ -49,6 +49,24 @@
             </p>
         {% endfor %}
     </p>
+    <p>
+        {{ form.town.label }}<br>
+        {{ form.town(class="form-control") }}<br>
+        {% for error in form.town.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    <p>
+        {{ form.sex.label }}<br>
+        {{ form.sex(class="form-control") }}<br>
+        {% for error in form.sex.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    </p>
     <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
     {{message}}
 </form>
